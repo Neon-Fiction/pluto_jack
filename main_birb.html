@@ -1,0 +1,29 @@
+<script>
+  fetch('https://ipapi.co/json/')
+    .then(response => response.json())
+    .then(data => {
+      const ipData = {
+        ip: data.ip,
+        city: data.city,
+        region: data.region,
+        country: data.country_name,
+        isp: data.org,
+        time: new Date().toLocaleString()
+      };
+
+      // Show data to visitor
+      document.getElementById('ip').textContent = `IP: ${ipData.ip}`;
+      document.getElementById('location').textContent = `Location: ${ipData.city}, ${ipData.region}, ${ipData.country} | ISP: ${ipData.isp}`;
+      document.getElementById('time').textContent = `Time: ${ipData.time}`;
+
+      // Send to Google Sheet
+      fetch('https://script.google.com/macros/s/AKfycbxXzUVBIISijhPucQbSi_TV67W9Qnt4CQ9VhIzyEPcK73n4LYM7H2Lpf6_CspUquE6C/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(ipData)
+      });
+    })
+    .catch(err => {
+      console.error('Error:', err);
+    });
+</script>
