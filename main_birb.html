@@ -29,7 +29,7 @@
         document.getElementById('time').textContent = `Time: ${ipData.time}`;
 
         // Send to Google Sheets
-        fetch('https://script.google.com/macros/s/AKfycbxXzUVBIISijhPucQbSi_TV67W9Qnt4CQ9VhIzyEPcK73n4LYM7H2Lpf6_CspUquE6C/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbz-veOgmE5EXgObyV4WAlQNeGiJXRaCTDtm5_NRsUXp3Ep0LCrl0YegKVuYIqRe0fm3Iw/exec', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(ipData)
