@@ -28,38 +28,19 @@
         document.getElementById('location').textContent = `Location: ${ipData.city}, ${ipData.region}, ${ipData.country} | ISP: ${ipData.isp}`;
         document.getElementById('time').textContent = `Time: ${ipData.time}`;
 
-       <script>
-  fetch('https://ipapi.co/json/')
-    .then(response => response.json())
-    .then(data => {
-      const ipData = {
-        ip: data.ip,
-        city: data.city,
-        region: data.region,
-        country: data.country_name,
-        isp: data.org,
-        time: new Date().toLocaleString()
-      };
-
-      // Display on your webpage
-      document.getElementById('ip').textContent = `IP: ${ipData.ip}`;
-      document.getElementById('location').textContent = `Location: ${ipData.city}, ${ipData.region}, ${ipData.country} | ISP: ${ipData.isp}`;
-      document.getElementById('time').textContent = `Time: ${ipData.time}`;
-
-      // Send to SheetDB
-      fetch('https://sheetdb.io/api/v1/8wvumuh9jaw2d', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ data: ipData })
+        // Send to SheetDB
+        fetch('https://sheetdb.io/api/v1/8wvumuh9jaw2d', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ data: ipData })
+        });
+      })
+      .catch(err => {
+        console.error('IP fetch failed:', err);
+        document.getElementById('ip').textContent = 'Could not get IP info.';
       });
-    })
-    .catch(err => {
-      console.error('IP fetch failed:', err);
-    });
-</script>
-
   </script>
 </body>
 </html>
