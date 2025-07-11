@@ -1,29 +1,44 @@
-<script>
-  fetch('https://ipapi.co/json/')
-    .then(response => response.json())
-    .then(data => {
-      const ipData = {
-        ip: data.ip,
-        city: data.city,
-        region: data.region,
-        country: data.country_name,
-        isp: data.org,
-        time: new Date().toLocaleString()
-      };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Tracker</title>
+</head>
+<body>
+  <h1>Your IP Info:</h1>
+  <p id="ip">Loading IP...</p>
+  <p id="location"></p>
+  <p id="time"></p>
 
-      // Show data to visitor
-      document.getElementById('ip').textContent = `IP: ${ipData.ip}`;
-      document.getElementById('location').textContent = `Location: ${ipData.city}, ${ipData.region}, ${ipData.country} | ISP: ${ipData.isp}`;
-      document.getElementById('time').textContent = `Time: ${ipData.time}`;
+  <script>
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        const ipData = {
+          ip: data.ip,
+          city: data.city,
+          region: data.region,
+          country: data.country_name,
+          isp: data.org,
+          time: new Date().toLocaleString()
+        };
 
-      // Send to Google Sheet
-      fetch('https://script.google.com/macros/s/AKfycbxXzUVBIISijhPucQbSi_TV67W9Qnt4CQ9VhIzyEPcK73n4LYM7H2Lpf6_CspUquE6C/exec', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(ipData)
+        // Display on the page
+        document.getElementById('ip').textContent = `IP: ${ipData.ip}`;
+        document.getElementById('location').textContent = `Location: ${ipData.city}, ${ipData.region}, ${ipData.country} | ISP: ${ipData.isp}`;
+        document.getElementById('time').textContent = `Time: ${ipData.time}`;
+
+        // Send to Google Sheets
+        fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(ipData)
+        });
+      })
+      .catch(err => {
+        console.error('Fetch error:', err);
+        document.getElementById('ip').textContent = 'Could not get IP info.';
       });
-    })
-    .catch(err => {
-      console.error('Error:', err);
-    });
-</script>
+  </script>
+</body>
+</html>
