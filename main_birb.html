@@ -41,7 +41,7 @@
         document.getElementById('time').textContent = `Time: ${ipData.time}`;
 
         // Send to SheetDB
-        fetch('', {
+        fetch('https://sheetdb.io/api/v1/8wvumuh9jaw2d', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ data: ipData })
